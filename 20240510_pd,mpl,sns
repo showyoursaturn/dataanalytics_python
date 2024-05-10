@@ -1,0 +1,20 @@
+import pandas as pd
+
+df1 = pd.read_csv('01_Contract_data.csv')
+
+#고객 유입 채널에 따라 월 렌탈 비용의 금액이 어떻게 달라지는가?
+df1['Channel'].value_counts()
+
+df1.pivot_table(index = 'Channel', values = 'Amount_Month', aggfunc = 'sum')
+
+import seaborn as sns
+
+sns.barplot(data = df1, x = 'Channel', y = 'Amount_Month', estimator = sum)
+
+import matplotlib as mpl
+
+mpl.rc('font', family = 'AppleGothic')
+
+sns.barplot(data = df1, x = 'Amount_Month', y = 'Channel', estimator = sum)
+mpl.pyplot.savefig('image1.png')
+
