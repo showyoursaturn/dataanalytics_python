@@ -1,0 +1,39 @@
+import pandas as pd
+
+df1 = pd.read_csv('01_Contract_Data.csv')
+
+# 간단한 기계학습 프로그램 제작
+
+- 데이터간 관계, 연관성, 상관성을 컴퓨터가 분석하여 수식이나 규칙을 도출하는 과정
+- y = ax + bx + c (수식화)
+- Term / Age / Overdue_count / Credit_Rank -> Amount_Month
+
+# NaN : Not A Number (데이터가 비어있는 값)
+# 결측치 제거
+
+df2 = df1.dropna()
+
+Y = df2['Amount_Month']
+X = df2[['Term', 'Age', 'Overdue_count', 'Credit_Rank']]
+
+from sklearn.linear_model import LinearRegression
+
+model = LinearRegression()
+
+model.fit(X, Y) #데이터를 학습해서 새로운 규칙 도출
+
+model.coef_
+
+model.intercept_
+
+Amount_Month = (4.29425461e+02 * Term), (-6.66281653e-01 * Age), (7.49562364e+02 * Overdue_count), (-7.64410309e+01 * Credit_Rank) + 70626.56440050257
+
+input_term = input('Term 값을 입력하시오: ')
+input_Age = input('Age 값을 입력하시오: ')
+input_Overdue = input('Overdue_Count 값을 입력하시오: ')
+input_Credit = input('Credit_Rank 값을 입력하시오: ')
+
+input_x = pd.DataFrame(data=[[input_term, input_Age, input_Overdue, input_Credit]])
+
+model.predict(input_x)
+
